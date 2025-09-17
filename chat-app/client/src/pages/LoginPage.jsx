@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext.jsx'
 
 const LoginPage = () => {
 
-  const [currState, setCurrState] = useState("Sign up")
+  const [currState, setCurrState] = useState("Sign Up")
   const [fullName, setFullName] = useState("")
   const [email,setEmail]=useState("")
   const [password, setPassword]=useState("")
@@ -14,18 +14,23 @@ const LoginPage = () => {
 
   const {login}= useContext(AuthContext);
 
-  const onSubmitHandler = (event)=>{
-    event.preventDefault();
+const onSubmitHandler = (event) => {
+  event.preventDefault();
 
-    if(currState === 'Sign Up' && !isDataSubmitted)
-    {
-      setIsDataSubmitted(true)
-      return;
-    }
+  if (currState === "Sign Up" && !isDataSubmitted) {
+    setIsDataSubmitted(true);
+    return;
+  }
 
-    login(currState === "Sign up"?'signup':'login',{fullName,email,password,
-      bio})
-  } 
+  if (currState === "Sign Up") {
+    // signup
+    login("signup", { fullName, email, password, bio });
+  } else {
+    // login
+    login("login", { email, password });
+  }
+};
+
 
   return (
     <div className=' min-h-screen bg-cover bg-center flex items-center
